@@ -1,0 +1,23 @@
+diff --git a/imx8mm-evk.dts.orig b/imx8mm-evk.dts
+index 8540d71..19b542a 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mm-evk.dts
+@@ -22,6 +22,18 @@
+ 		pinctrl-0 = <&pinctrl_usdhc1_gpio>;
+ 		reset-gpios = <&gpio2 10 GPIO_ACTIVE_LOW>;
+ 	};
++    
++    imx8mm-cm4 {
++        compatible = "fsl,imx8mm-cm4";
++        rsc-da = <0xb8000000>;
++        clocks = <0x02 0x4d>;
++        mbox-names = "tx\0rx\0rxdb";
++        mboxes = <0x84 0x00 0x01 0x84 0x01 0x01 0x84 0x03 0x01>;
++        memory-region = <0x85 0x86 0x87 0x88>;
++        syscon = <0x63>;
++        status = "okay";
++    };
++
+ };
+ 
+ &ddrc {

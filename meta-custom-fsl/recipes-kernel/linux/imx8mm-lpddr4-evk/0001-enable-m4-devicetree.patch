@@ -1,0 +1,45 @@
+diff --git a/imx8mm-evk-rpmsg.dts.orig b/imx8mm-evk-rpmsg.dts
+index 0b10547..62a1db4 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-evk-rpmsg.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mm-evk-rpmsg.dts
+@@ -38,6 +38,21 @@
+ 			reg = <0 0xb8400000 0 0x100000>;
+ 			no-map;
+ 		};
++
++        m4_ddr_alias: m4@0x10000000 {
++            no-map;
++            reg = <0 0x10000000 0 0x1000000>;
++        };
++
++        m4_tcmu: m4@0x20000000 {
++            no-map;
++            reg = <0 0x20000000 0 0x20000>;
++        };
++
++        m4_tcml: m4@0x1FFE0000 {
++            no-map;
++            reg = <0 0x1FFE0000 0 0x20000>;
++        };
+ 	};
+ 
+ 	bt_sco_codec: bt_sco_codec {
+@@ -82,8 +97,9 @@
+ 		mboxes = <&mu 0 1
+ 			  &mu 1 1
+ 			  &mu 3 1>;
+-		memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>, <&rsc_table>;
++		memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>, <&rsc_table>, <&m4_reserved>, <&m4_ddr_alias>, <&m4_tcmu>, <&m4_tcml>;
+ 		syscon = <&src>;
++        status = "okay";
+ 	};
+ };
+ 
+@@ -96,6 +112,7 @@
+ 	IMX8MM_CLK_DRAM_APB IMX8MM_CLK_A53_DIV
+ 	IMX8MM_ARM_PLL_OUT IMX8MM_CLK_DISP_AXI
+ 	IMX8MM_CLK_DISP_APB
++    IMX8MM_CLK_M4_DIV
+ 	>;
+ };
+ 
